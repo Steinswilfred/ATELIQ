@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* space-separated RGB so Tailwind opacity modifiers work; overwritten by ThemeProvider */
+  --primary: 240 97 109;
+  --primary-soft: 253 230 232;
+  --ink: 20 17 20;
+  --background: 255 255 255;
+  --surface: 246 244 244;
+  --text: 43 38 40;
+  --font-display: 'Fraunces';
+  --font-body: 'Figtree';
+}
+
+@layer base {
+  html { -webkit-text-size-adjust: 100%; }
+  body { @apply bg-canvas text-body font-sans antialiased; }
+  h1, h2, h3 { @apply font-display text-ink; }
+  :focus-visible { outline: 2px solid rgb(var(--primary)); outline-offset: 2px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
