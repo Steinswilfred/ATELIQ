@@ -79,8 +79,8 @@ app:
     cookie-secure: ${COOKIE_SECURE:false}
 
   bootstrap:
-    super-admin-email: ${SUPER_ADMIN_EMAIL}
-    super-admin-password: ${SUPER_ADMIN_PASSWORD}
+    super-admin-email: ${SUPER_ADMIN_EMAIL:steinswilfred5@gmail.com}
+    super-admin-password: ${SUPER_ADMIN_PASSWORD:Steins@20021234}
 
   razorpay:
     key-id: ${RAZORPAY_KEY_ID:}
