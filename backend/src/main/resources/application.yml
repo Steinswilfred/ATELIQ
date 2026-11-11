@@ -5,8 +5,19 @@ spring:
 
   datasource:
     url: ${DB_URL:jdbc:postgresql://aws-1-ap-southeast-2.pooler.supabase.com:5432/postgres?currentSchema=clothing_platform}
-    username: ${DB_USERNAME:postgres.whofaxgzmkvaildekrle}
-    password: ${DB_PASSWORD:nevEi1pTtYUnJknH}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+
+    # IMPORTANT: Limit Supabase connections
+    hikari:
+      pool-name: ATELIQ-HikariPool
+      maximum-pool-size: 2
+      minimum-idle: 0
+      connection-timeout: 30000
+      idle-timeout: 300000
+      max-lifetime: 600000
+      validation-timeout: 5000
 
   servlet:
     multipart:
@@ -36,8 +47,8 @@ spring:
   mail:
     host: ${MAIL_HOST:smtp.gmail.com}
     port: ${MAIL_PORT:587}
-    username: ${MAIL_USERNAME:steinswilfred5@gmail.com}
-    password: ${MAIL_PASSWORD:ovtupbpkxgvudqrx}
+    username: ${MAIL_USERNAME:}
+    password: ${MAIL_PASSWORD:}
     properties:
       mail:
         smtp:
@@ -52,7 +63,8 @@ spring:
             trust: smtp.gmail.com
 
 server:
-  port: 8080
+  port: ${PORT:10000}
+  address: 0.0.0.0
 
 app:
   frontend-url: ${FRONTEND_URL:http://localhost:5173}
@@ -61,14 +73,14 @@ app:
     allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:5173}
 
   jwt:
-    secret: ${JWT_SECRET:7fK9mP2xQ8vR4nT6wY3bL1cH5jD0sA9z}
+    secret: ${JWT_SECRET}
     access-ttl-minutes: ${JWT_ACCESS_TTL_MINUTES:15}
     refresh-ttl-days: ${JWT_REFRESH_TTL_DAYS:14}
     cookie-secure: ${COOKIE_SECURE:false}
 
   bootstrap:
-    super-admin-email: ${SUPER_ADMIN_EMAIL:steinswilfred5@gmail.com}
-    super-admin-password: ${SUPER_ADMIN_PASSWORD:Steins@20021234}
+    super-admin-email: ${SUPER_ADMIN_EMAIL}
+    super-admin-password: ${SUPER_ADMIN_PASSWORD}
 
   razorpay:
     key-id: ${RAZORPAY_KEY_ID:}
