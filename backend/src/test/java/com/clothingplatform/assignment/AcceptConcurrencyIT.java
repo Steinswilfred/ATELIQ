@@ -20,7 +20,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
  * exactly one succeeds, the rest get ORDER_TAKEN, and only one active assignment row exists. Skipped when Docker is not available.
  */
 @Testcontainers(disabledWithoutDocker = true)
-@SpringBootTest(properties = {"app.jwt.secret=0123456789abcdef0123456789abcdef", "spring.mail.host=localhost"})
+@SpringBootTest(properties = {"app.jwt.secret=0123456789abcdef0123456789abcdef", "spring.mail.host=lohttps://ateliq-2.onrender.comcalhost"})
 class AcceptConcurrencyIT {
     @Container @ServiceConnection static PostgreSQLContainer<?> db = new PostgreSQLContainer<>("postgres:16");
 
