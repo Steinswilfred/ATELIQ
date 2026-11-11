@@ -1,0 +1,18 @@
+# Pending Tasks
+- [ ] **Compile and run the backend; apply V1-V9, run the Docker tests AcceptConcurrencyIT, PasswordResetIT, FabricApprovalFlowIT, FulfilmentFlowIT, FinanceFlowIT, exercise Razorpay Test Mode end to end; run the manual checks in PROJECT_STATUS.md, including a visual check of the 3D preview**
+- [ ] Source or commission real .glb garment models (shirt, trousers, kurta, blouse, suit…) per docs/3D_MODEL_GUIDE.md
+- [ ] Integration tests (Testcontainers): auth, status changes, application review, RBAC guard, catalog rules, upload validation, design ownership
+- [ ] Trending colours/fabrics; public fabric/size filters; admin editor for measurement fields; visual measurement guides (artwork)
+- [ ] Tailor portfolio/document upload with an upload token after verification; S3-compatible StorageService
+- [ ] Reapply flow after rejection; Redis per-IP rate limiting; real SMS provider; production SMTP
+- [ ] Admin audit/security log viewer, CSV/PDF export (Phase 13)
+- [ ] Review the example tailor category prices and set real ones
+- [ ] Confirm GST rate, delivery policy and COD policy for the business
+- [ ] Expiry/cleanup of abandoned unpaid orders; checkout rate limiting
+- [ ] Alert/auto-handling when an assigned tailor is blocked or suspended
+- [ ] Reminder or timeout when a customer does not respond to a fabric sample
+- [ ] Choose a courier/logistics provider and implement CourierTrackingProvider (needs their account and API key)
+- [ ] **Confirm commission %, settlement hold days, cancellation fee, GST/delivery tax treatment (with an accountant)**
+- [ ] Credit notes / commission invoices; customer-initiated returns; payout automation (RazorpayX or bank API) if wanted
+- [ ] Phase 13 onward per DEVELOPMENT_ROADMAP.md
+- [ ] Decide: brand name, 3D asset source (needed for Phase 6); obtain Razorpay test keys and Maps key

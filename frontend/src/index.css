@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --c-primary: 232 80 91;      /* light red  #E8505B */
+  --c-secondary: 10 10 10;     /* black      #0A0A0A */
+  --c-background: 255 255 255;
+  --c-surface: 246 246 247;
+  --c-accent: 244 160 166;     /* soft red   #F4A0A6 */
+  --c-text: 43 43 46;          /* charcoal   #2B2B2E */
+  --font-heading: 'Bricolage Grotesque';
+  --font-body: 'Manrope';
+}
+
+@layer base {
+  body { @apply bg-canvas font-sans text-body antialiased; }
+  h1, h2, h3, h4 { @apply font-heading text-ink; }
+  :focus-visible { @apply outline-2 outline-offset-2 outline-primary; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}

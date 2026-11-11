@@ -1,0 +1,2 @@
+export interface SampleEvent { action: 'SUBMITTED' | 'APPROVED' | 'REJECTED'; actorName: string; role: 'TAILOR' | 'CUSTOMER'; reason?: string; at: string }
+export interface SampleT { id: number; revision: number; status: 'PENDING' | 'APPROVED' | 'REJECTED'; note?: string; submittedBy: string; submittedAt: string; decidedAt?: string; decisionReason?: string; photos: string[]; events: SampleEvent[] }
