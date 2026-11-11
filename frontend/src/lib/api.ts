@@ -14,8 +14,14 @@ export class ApiError extends Error {
   }
 }
 
+const API_BASE_URL = (
+  import.meta.env.VITE_API_BASE_URL || '/api/v1'
+).replace(/\/+$/, '')
+
 // withCredentials lets the browser send the HttpOnly refresh cookie to /auth/*.
-export const http = axios.create({ baseURL: '/api/v1', timeout: 15000, withCredentials: true })
+export const http = axios.create({ baseURL: API_BASE_URL, timeout: 15000, withCredentials: true })
+
+
 
 let accessToken: string | null = null
 let onSessionLost: (() => void) | null = null
