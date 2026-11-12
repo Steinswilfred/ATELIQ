@@ -103,9 +103,13 @@ app:
     key-secret: ${RAZORPAY_KEY_SECRET:tJw5tzhUVQHIRdBfEjoTgYzD}
     webhook-secret: ${RAZORPAY_WEBHOOK_SECRET:clothing-platform-webhook}
 
+  app:
   storage:
-    provider: ${STORAGE_PROVIDER:local}
-    local-dir: ${STORAGE_LOCAL_DIR:./data/uploads}
+    provider: supabase
+    supabase:
+      url: ${SUPABASE_URL}
+      secret-key: ${SUPABASE_SERVICE_ROLE_KEY}
+      bucket: ${SUPABASE_STORAGE_BUCKET:product-media}
 
   sms:
     provider: ${SMS_PROVIDER:log}

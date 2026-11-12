@@ -88,6 +88,26 @@ export function getMediaUrl(url?: string | null): string {
   return url
 }
 
+
+export const resolveMediaUrl = (url?: string | null): string => {
+  if (!url) return "";
+
+  // Keep Supabase and other absolute URLs unchanged.
+  if (/^https?:\/\//i.test(url)) {
+    return url;
+  }
+
+  // Keep existing backend media URLs working during migration.
+  const backendUrl = import.meta.env.VITE_API_URL;
+
+  if (url.startsWith("/")) {
+    return `${backendUrl}${url}`;
+  }
+
+  return `${backendUrl}/${url}`;
+};
+
+
 // withCredentials sends the HttpOnly refresh cookie.
 export const http = axios.create({
   baseURL: API_BASE_URL,

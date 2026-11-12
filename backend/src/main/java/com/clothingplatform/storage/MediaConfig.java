@@ -1,22 +1,47 @@
+
 package com.clothingplatform.storage;
 
-import java.util.concurrent.TimeUnit;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.http.CacheControl;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-@Configuration
-@ConditionalOnBean(LocalStorageService.class)
-public class MediaConfig implements WebMvcConfigurer {
-    private final LocalStorageService storage;
-    public MediaConfig(LocalStorageService storage) { this.storage = storage; }
+import java.io.IOException;
+import java.util.Map;
 
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/media/**")
-                .addResourceLocations(storage.root().toUri().toString())
-                .setCacheControl(CacheControl.maxAge(7, TimeUnit.DAYS).cachePublic());
+@RestController
+@RequestMapping("/api/v1/media")
+public class MediaController {
+
+    private final SupabaseStorageService storageService;
+
+    public MediaController(SupabaseStorageService storageService) {
+        this.storageService = storageService;
+    }
+
+    @PostMapping("/upload")
+    public ResponseEntity<?> upload(
+            @RequestParam("file") MultipartFile file,
+            @RequestParam(defaultValue = "catalog") String folder
+    ) throws IOException {
+
+        String url = storageService.upload(file, folder);
+
+        return ResponseEntity.ok(Map.of(
+                "success", true,
+                "url", url
+        ));
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<?> delete(
+            @RequestParam("path") String path
+    ) {
+
+        storageService.delete(path);
+
+        return ResponseEntity.ok(Map.of(
+                "success", true,
+                "message", "File deleted successfully"
+        ));
     }
 }
