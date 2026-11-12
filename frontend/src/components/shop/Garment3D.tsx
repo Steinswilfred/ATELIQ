@@ -33,22 +33,6 @@ const VIEWS: Record<ViewName, THREE.Vector3> = {
 const textures = new Map<string, THREE.Texture>()
 const loader = new THREE.TextureLoader()
 
-// function texture(url: string) {
-//   let t = textures.get(url)
-
-//   if (!t) {
-//     t = loader.load(url)
-//     t.colorSpace = THREE.SRGBColorSpace
-//     t.wrapS = THREE.RepeatWrapping
-//     t.wrapT = THREE.RepeatWrapping
-//     t.repeat.set(3, 3)
-
-//     textures.set(url, t)
-//   }
-
-//   return t
-// }
-
 function texture(url: string) {
   const resolvedUrl = getMediaUrl(url)
 
@@ -248,14 +232,6 @@ function BuiltinModel({
 /**
  * Uploaded GLB model.
  */
-// function GlbModel({
-//   url,
-//   rs,
-// }: {
-//   url: string
-//   rs: RenderState
-// }) {
-//   const { scene } = useGLTF(url)
 function GlbModel({
   url,
   rs,
