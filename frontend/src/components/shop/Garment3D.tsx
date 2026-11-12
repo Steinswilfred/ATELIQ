@@ -15,6 +15,7 @@ import {
   isNodeVisible,
   RenderState,
 } from '../../lib/renderState'
+import { getMediaUrl } from '../../lib/api'
 
 export type ViewName = 'front' | 'back' | 'left' | 'right'
 
@@ -32,17 +33,36 @@ const VIEWS: Record<ViewName, THREE.Vector3> = {
 const textures = new Map<string, THREE.Texture>()
 const loader = new THREE.TextureLoader()
 
+// function texture(url: string) {
+//   let t = textures.get(url)
+
+//   if (!t) {
+//     t = loader.load(url)
+//     t.colorSpace = THREE.SRGBColorSpace
+//     t.wrapS = THREE.RepeatWrapping
+//     t.wrapT = THREE.RepeatWrapping
+//     t.repeat.set(3, 3)
+
+//     textures.set(url, t)
+//   }
+
+//   return t
+// }
+
 function texture(url: string) {
-  let t = textures.get(url)
+  const resolvedUrl = getMediaUrl(url)
+
+  let t = textures.get(resolvedUrl)
 
   if (!t) {
-    t = loader.load(url)
+    t = loader.load(resolvedUrl)
+
     t.colorSpace = THREE.SRGBColorSpace
     t.wrapS = THREE.RepeatWrapping
     t.wrapT = THREE.RepeatWrapping
     t.repeat.set(3, 3)
 
-    textures.set(url, t)
+    textures.set(resolvedUrl, t)
   }
 
   return t
@@ -228,6 +248,14 @@ function BuiltinModel({
 /**
  * Uploaded GLB model.
  */
+// function GlbModel({
+//   url,
+//   rs,
+// }: {
+//   url: string
+//   rs: RenderState
+// }) {
+//   const { scene } = useGLTF(url)
 function GlbModel({
   url,
   rs,
@@ -235,7 +263,11 @@ function GlbModel({
   url: string
   rs: RenderState
 }) {
-  const { scene } = useGLTF(url)
+  // Convert relative backend media URL to absolute Render URL.
+  const resolvedUrl = getMediaUrl(url)
+
+  // Load GLB from the correct backend.
+  const { scene } = useGLTF(resolvedUrl)
 
   const root = useMemo(() => {
     const clone = scene.clone(true)
