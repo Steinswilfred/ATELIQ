@@ -1,4 +1,3 @@
-
 spring:
   application:
     name: clothing-platform
@@ -9,7 +8,6 @@ spring:
     password: ${DB_PASSWORD:nevEi1pTtYUnJknH}
     driver-class-name: org.postgresql.Driver
 
-    # IMPORTANT: Limit Supabase connections
     hikari:
       pool-name: ATELIQ-HikariPool
       maximum-pool-size: 2
@@ -29,8 +27,10 @@ spring:
       ddl-auto: validate
     open-in-view: false
     properties:
-      hibernate.jdbc.time_zone: UTC
-      hibernate.default_schema: clothing_platform
+      hibernate:
+        jdbc:
+          time_zone: UTC
+        default_schema: clothing_platform
 
   flyway:
     enabled: true
@@ -65,6 +65,22 @@ spring:
 server:
   port: ${PORT:10000}
   address: 0.0.0.0
+  shutdown: graceful
+
+  compression:
+    enabled: true
+    mime-types:
+      - application/json
+      - application/javascript
+      - text/html
+      - text/css
+      - text/plain
+    min-response-size: 1024
+
+  error:
+    include-message: never
+    include-binding-errors: never
+    include-stacktrace: never
 
 app:
   frontend-url: ${FRONTEND_URL:https://ateliq-two.vercel.app}
@@ -76,16 +92,16 @@ app:
     secret: ${JWT_SECRET:7fK9mP2xQ8vR4nT6wY3bL1cH5jD0sA9z}
     access-ttl-minutes: ${JWT_ACCESS_TTL_MINUTES:15}
     refresh-ttl-days: ${JWT_REFRESH_TTL_DAYS:14}
-    cookie-secure: ${COOKIE_SECURE:false}
+    cookie-secure: ${COOKIE_SECURE:true}
 
   bootstrap:
     super-admin-email: ${SUPER_ADMIN_EMAIL:steinswilfred5@gmail.com}
     super-admin-password: ${SUPER_ADMIN_PASSWORD:Steins@20021234}
 
   razorpay:
-    key-id: ${RAZORPAY_KEY_ID:}
-    key-secret: ${RAZORPAY_KEY_SECRET:}
-    webhook-secret: ${RAZORPAY_WEBHOOK_SECRET:}
+    key-id: ${RAZORPAY_KEY_ID:rzp_test_TT8KBze2YOz2uy}
+    key-secret: ${RAZORPAY_KEY_SECRET:tJw5tzhUVQHIRdBfEjoTgYzD}
+    webhook-secret: ${RAZORPAY_WEBHOOK_SECRET:clothing-platform-webhook}
 
   storage:
     provider: ${STORAGE_PROVIDER:local}
@@ -99,3 +115,26 @@ management:
     web:
       exposure:
         include: health,info
+
+  endpoint:
+    health:
+      show-details: never
+
+logging:
+  level:
+    root: INFO
+
+    com.clothingplatform: INFO
+
+    org.springframework.web: INFO
+
+    org.springframework.security: INFO
+
+    com.zaxxer.hikari: INFO
+
+    org.hibernate.SQL: WARN
+
+    org.flywaydb: INFO
+
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{36} - %msg%n"
